@@ -55,7 +55,33 @@ body {
   letter-spacing: 1px;
 }
 
-.navbar ul {
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.nav-toggle-label span {
+  width: 20px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 999px;
+  transition: var(--transition);
+}
+
+.nav-links {
   list-style: none;
   display: flex;
   gap: 35px;
@@ -580,15 +606,70 @@ footer a:hover {
 /* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    padding: 16px 20px;
+    position: sticky;
+    align-items: center;
+    gap: 0;
   }
 
-  .navbar ul {
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
+  .nav-toggle-label {
+    display: inline-flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 20px;
+    right: 20px;
+    display: grid;
+    gap: 0;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.98);
+    border: 1px solid rgba(56, 189, 248, 0.12);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-links li + li {
+    margin-top: 6px;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .nav-links li a::after {
+    display: none;
+  }
+
+  .nav-links li a:hover {
+    background: rgba(56, 189, 248, 0.12);
+  }
+
+  .nav-toggle:checked ~ .nav-links {
+    transform: scaleY(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-toggle:checked + .nav-toggle-label span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .nav-toggle:checked + .nav-toggle-label span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle:checked + .nav-toggle-label span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 
   .hero {
